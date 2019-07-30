@@ -1,26 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import './css/bootstrap.min.css';
+import { Header, NewAppointment, ListAppointments } from './components';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { appointments: [] };
+
+  componentDidMount() {
+    const appointmentsLS = localStorage.getItem('appointments');
+    if (appointmentsLS) {
+      this.setState({
+        appointments: JSON.parse(appointmentsLS)
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    localStorage.setItem(
+      'appointments',
+      JSON.stringify(this.state.appointments)
+    );
+  }
+
+  addNewAppointment = data =>
+    this.setState({
+      appointments: [...this.state.appointments, data]
+    });
+
+  removeAppointment = id => {
+    const dates = [...this.state.appointments];
+    const appointments = dates.filter(date => date.id !== id);
+    this.setState({ appointments });
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <Header title="Pet Admin" />
+        <div className="row">
+          <div className="col-md-10 mx-auto">
+            <NewAppointment addNewAppointment={this.addNewAppointment} />
+          </div>
+
+          <div className="mt-5 col-md-10 mx-auto">
+            <ListAppointments
+              appointments={this.state.appointments}
+              removeAppointment={this.removeAppointment}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
