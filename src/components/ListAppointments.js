@@ -4,8 +4,8 @@ import Appointment from './Appointment';
 
 const ListAppointments = ({ appointments, removeAppointment }) => {
   const message = Object.keys(appointments).length
-    ? 'No Appointments'
-    : 'Appointments Manager';
+    ? 'Appointments Manager'
+    : 'No Appointments';
 
   return (
     <div className="card mt-2 py-5">
