@@ -39,17 +39,18 @@ class NewAppointment extends Component {
       }
     }
 
-    this.setState({
-      appointment: {
-        ...this.state.appointment,
-        id: uuid()
+    this.setState(
+      {
+        appointment: {
+          ...this.state.appointment,
+          id: uuid()
+        }
+      },
+      () => {
+        this.props.addNewAppointment(this.state.appointment);
+        this.setState({ ...initialState });
       }
-    });
-
-    setTimeout(() => {
-      this.props.addNewAppointment(this.state.appointment);
-      this.setState({ ...initialState });
-    });
+    );
   };
 
   render() {
