@@ -3,6 +3,7 @@ import { Header, NewAppointment, ListAppointments } from './components';
 
 const App = () => {
   const [appointments, setAppointments] = useState([]);
+  const addNewAppointment = data => setAppointments([...appointments, data]);
 
   return (
     <Fragment>
@@ -10,9 +11,7 @@ const App = () => {
       <div className="container">
         <div className="row">
           <div className="one-half column">
-            <NewAppointment
-            // addNewAppointment={this.addNewAppointment}
-            />
+            <NewAppointment addNewAppointment={addNewAppointment} />
           </div>
           <div className="one-half column">
             {/* <ListAppointments
@@ -42,11 +41,6 @@ const App = () => {
 //       JSON.stringify(this.state.appointments)
 //     );
 //   }
-
-//   addNewAppointment = data =>
-//     this.setState({
-//       appointments: [...this.state.appointments, data]
-//     });
 
 //   removeAppointment = id => {
 //     const dates = [...this.state.appointments];
