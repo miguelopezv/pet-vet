@@ -4,6 +4,7 @@ import uuid from 'uuid';
 
 const NewAppointment = ({ addNewAppointment }) => {
   const [appointment, setAppointment] = useState({
+    id: '',
     pet: '',
     owner: '',
     date: '',
@@ -28,18 +29,9 @@ const NewAppointment = ({ addNewAppointment }) => {
     //   }
     // }
 
-    // this.setState(
-    //   {
-    //     appointment: {
-    //       ...this.state.appointment,
-    //       id: uuid()
-    //     }
-    //   },
-    //   () => {
+    setAppointment({ ...appointment, id: uuid() });
     addNewAppointment(appointment);
     // this.setState({ ...initialState });
-    // }
-    // );
   };
 
   return (
