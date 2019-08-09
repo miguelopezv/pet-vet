@@ -1,8 +1,47 @@
-import React, { Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import uuid from 'uuid';
 
-const NewAppointment = () => {
+const NewAppointment = ({ addNewAppointment }) => {
+  const [appointment, setAppointment] = useState({
+    pet: '',
+    owner: '',
+    date: '',
+    hour: '',
+    symptoms: ''
+  });
+
+  const handleChange = e => {
+    setAppointment({
+      ...appointment,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    // for (const key in appointment) {
+    //   if (appointment.hasOwnProperty(key) && appointment[key] === '') {
+    //     this.setState({ error: true });
+    //     return;
+    //   }
+    // }
+
+    // this.setState(
+    //   {
+    //     appointment: {
+    //       ...this.state.appointment,
+    //       id: uuid()
+    //     }
+    //   },
+    //   () => {
+    addNewAppointment(appointment);
+    // this.setState({ ...initialState });
+    // }
+    // );
+  };
+
   return (
     <Fragment>
       <h2>Crear Cita</h2>
@@ -17,16 +56,14 @@ const NewAppointment = () => {
              </div>
            ) : null} */}
 
-      <form
-      // onSubmit={this.handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <label>Pet name:</label>
         <input
           type="text"
           className="u-full-width"
           placeholder="Pet name"
           name="pet"
-          // onChange={this.handleChange}
+          onChange={handleChange}
           // value={this.state.appointment.pet}
         />
         <label>Owner name:</label>
@@ -35,7 +72,7 @@ const NewAppointment = () => {
           className="u-full-width"
           placeholder="Owner name"
           name="owner"
-          // onChange={this.handleChange}
+          onChange={handleChange}
           // value={this.state.appointment.owner}
         />
 
@@ -44,7 +81,7 @@ const NewAppointment = () => {
           type="date"
           className="u-full-width"
           name="date"
-          // onChange={this.handleChange}
+          onChange={handleChange}
           // value={this.state.appointment.date}
         />
 
@@ -53,7 +90,7 @@ const NewAppointment = () => {
           type="time"
           className="u-full-width"
           name="hour"
-          // onChange={this.handleChange}
+          onChange={handleChange}
           // value={this.state.appointment.hour}
         />
 
@@ -62,7 +99,7 @@ const NewAppointment = () => {
           className="u-full-width"
           placeholder="Symptoms"
           name="symptoms"
-          // onChange={this.handleChange}
+          onChange={handleChange}
           // value={this.state.appointment.symptoms}
         />
         <button type="submit" className="button-primary u-full-width">
@@ -75,18 +112,6 @@ const NewAppointment = () => {
   );
 };
 
-const initialState = {
-  appointment: {
-    id: undefined,
-    pet: '',
-    owner: '',
-    date: '',
-    hour: '',
-    symptoms: ''
-  },
-  error: false
-};
-
 // class NewAppointment extends Component {
 //   state = { ...initialState };
 
@@ -97,33 +122,6 @@ const initialState = {
 //         [e.target.name]: e.target.value
 //       }
 //     });
-//   };
-
-//   handleSubmit = e => {
-//     e.preventDefault();
-
-//     for (const key in this.state.appointment) {
-//       if (
-//         this.state.appointment.hasOwnProperty(key) &&
-//         this.state.appointment[key] === ''
-//       ) {
-//         this.setState({ error: true });
-//         return;
-//       }
-//     }
-
-//     this.setState(
-//       {
-//         appointment: {
-//           ...this.state.appointment,
-//           id: uuid()
-//         }
-//       },
-//       () => {
-//         this.props.addNewAppointment(this.state.appointment);
-//         this.setState({ ...initialState });
-//       }
-//     );
 //   };
 
 //   render() {
