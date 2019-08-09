@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './css/bootstrap.min.css';
 import { Header, NewAppointment, ListAppointments } from './components';
 
 class App extends Component {
