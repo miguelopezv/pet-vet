@@ -5,6 +5,12 @@ const App = () => {
   const [appointments, setAppointments] = useState([]);
   const addNewAppointment = data => setAppointments([...appointments, data]);
 
+  const removeAppointment = id => {
+    const dates = [...appointments];
+    const appointments = dates.filter(date => date.id !== id);
+    setAppointments(appointments);
+  };
+
   return (
     <Fragment>
       <Header title="Pet Admin" />
@@ -42,11 +48,6 @@ const App = () => {
 //     );
 //   }
 
-//   removeAppointment = id => {
-//     const dates = [...this.state.appointments];
-//     const appointments = dates.filter(date => date.id !== id);
-//     this.setState({ appointments });
-//   };
 // }
 
 export default App;
