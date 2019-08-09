@@ -14,10 +14,10 @@ const App = () => {
             <NewAppointment addNewAppointment={addNewAppointment} />
           </div>
           <div className="one-half column">
-            {/* <ListAppointments
-              appointments={this.state.appointments}
-              removeAppointment={this.removeAppointment}
-            /> */}
+            <ListAppointments
+              appointments={appointments}
+              // removeAppointment={this.removeAppointment}
+            />
           </div>
         </div>
       </div>
