@@ -3,14 +3,16 @@ import { PropTypes } from 'prop-types';
 import uuid from 'uuid';
 
 const NewAppointment = ({ addNewAppointment }) => {
-  const [appointment, setAppointment] = useState({
+  initialAppointment = {
     id: '',
     pet: '',
     owner: '',
     date: '',
     hour: '',
     symptoms: ''
-  });
+  };
+
+  const [appointment, setAppointment] = useState(initialAppointment);
 
   const handleChange = e => {
     setAppointment({
@@ -31,6 +33,7 @@ const NewAppointment = ({ addNewAppointment }) => {
 
     setAppointment({ ...appointment, id: uuid() });
     addNewAppointment(appointment);
+    setAppointment(initialAppointment);
     // this.setState({ ...initialState });
   };
 
@@ -56,7 +59,7 @@ const NewAppointment = ({ addNewAppointment }) => {
           placeholder="Pet name"
           name="pet"
           onChange={handleChange}
-          // value={this.state.appointment.pet}
+          value={appointment.pet}
         />
         <label>Owner name:</label>
         <input
@@ -65,7 +68,7 @@ const NewAppointment = ({ addNewAppointment }) => {
           placeholder="Owner name"
           name="owner"
           onChange={handleChange}
-          // value={this.state.appointment.owner}
+          value={appointment.owner}
         />
 
         <label>Date</label>
@@ -74,7 +77,7 @@ const NewAppointment = ({ addNewAppointment }) => {
           className="u-full-width"
           name="date"
           onChange={handleChange}
-          // value={this.state.appointment.date}
+          value={appointment.date}
         />
 
         <label>Hour</label>
@@ -83,7 +86,7 @@ const NewAppointment = ({ addNewAppointment }) => {
           className="u-full-width"
           name="hour"
           onChange={handleChange}
-          // value={this.state.appointment.hour}
+          value={appointment.hour}
         />
 
         <label>Symptoms</label>
@@ -92,7 +95,7 @@ const NewAppointment = ({ addNewAppointment }) => {
           placeholder="Symptoms"
           name="symptoms"
           onChange={handleChange}
-          // value={this.state.appointment.symptoms}
+          value={appointment.symptoms}
         />
         <button type="submit" className="button-primary u-full-width">
           Add Appointment
