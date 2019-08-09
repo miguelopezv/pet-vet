@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import uuid from 'uuid';
 
 const NewAppointment = ({ addNewAppointment }) => {
-  initialAppointment = {
+  const initialAppointment = {
     id: '',
     pet: '',
     owner: '',
