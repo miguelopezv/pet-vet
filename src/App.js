@@ -6,9 +6,8 @@ const App = () => {
   const addNewAppointment = data => setAppointments([...appointments, data]);
 
   const removeAppointment = id => {
-    const dates = [...appointments];
-    const appointments = dates.filter(date => date.id !== id);
-    setAppointments(appointments);
+    const dates = appointments.filter(date => date.id !== id);
+    setAppointments(dates);
   };
 
   return (
@@ -22,7 +21,7 @@ const App = () => {
           <div className="one-half column">
             <ListAppointments
               appointments={appointments}
-              // removeAppointment={this.removeAppointment}
+              removeAppointment={removeAppointment}
             />
           </div>
         </div>
