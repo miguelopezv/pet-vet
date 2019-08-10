@@ -1,56 +1,48 @@
-import React, { Component } from 'react';
-import './css/bootstrap.min.css';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Header, NewAppointment, ListAppointments } from './components';
 
-class App extends Component {
-  state = { appointments: [] };
+const App = () => {
+  let appointmentsLS = JSON.parse(localStorage.getItem('appointments'));
 
-  componentDidMount() {
-    const appointmentsLS = localStorage.getItem('appointments');
-    if (appointmentsLS) {
-      this.setState({
-        appointments: JSON.parse(appointmentsLS)
-      });
-    }
+  if (!appointmentsLS) {
+    appointmentsLS = [];
   }
+  const [appointments, setAppointments] = useState(appointmentsLS);
+  const addNewAppointment = data => setAppointments([...appointments, data]);
 
-  componentDidUpdate() {
-    localStorage.setItem(
-      'appointments',
-      JSON.stringify(this.state.appointments)
-    );
-  }
-
-  addNewAppointment = data =>
-    this.setState({
-      appointments: [...this.state.appointments, data]
-    });
-
-  removeAppointment = id => {
-    const dates = [...this.state.appointments];
-    const appointments = dates.filter(date => date.id !== id);
-    this.setState({ appointments });
+  const removeAppointment = id => {
+    const dates = appointments.filter(date => date.id !== id);
+    setAppointments(dates);
   };
 
-  render() {
-    return (
-      <div className="container">
-        <Header title="Pet Admin" />
-        <div className="row">
-          <div className="col-md-10 mx-auto">
-            <NewAppointment addNewAppointment={this.addNewAppointment} />
-          </div>
+  useEffect(() => {
+    // TODO: Refactor
+    const appointmentsLS = JSON.parse(localStorage.getItem('appointments'));
+    if (appointmentsLS) {
+      localStorage.setItem('appointments', JSON.stringify(appointments));
+    } else {
+      localStorage.setItem('appointments', JSON.stringify([]));
+    }
+  }, [appointments]);
 
-          <div className="mt-5 col-md-10 mx-auto">
+  return (
+    <Fragment>
+      <Header title="Pet Admin" />
+      <div className="container">
+        <div className="row">
+          <div className="one-half column">
+            <NewAppointment addNewAppointment={addNewAppointment} />
+          </div>
+          <div className="one-half column">
             <ListAppointments
-              appointments={this.state.appointments}
-              removeAppointment={this.removeAppointment}
+              appointments={appointments}
+              removeAppointment={removeAppointment}
             />
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </Fragment>
+  );
+};
 
 export default App;
