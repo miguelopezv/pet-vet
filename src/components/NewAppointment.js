@@ -4,7 +4,7 @@ import uuid from 'uuid';
 
 const NewAppointment = ({ addNewAppointment }) => {
   const initialAppointment = {
-    id: '',
+    id: undefined,
     pet: '',
     owner: '',
     date: '',
@@ -13,6 +13,7 @@ const NewAppointment = ({ addNewAppointment }) => {
   };
 
   const [appointment, setAppointment] = useState(initialAppointment);
+  const [error, setError] = useState(false);
 
   const handleChange = e => {
     setAppointment({
@@ -24,32 +25,26 @@ const NewAppointment = ({ addNewAppointment }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // for (const key in appointment) {
-    //   if (appointment.hasOwnProperty(key) && appointment[key] === '') {
-    //     this.setState({ error: true });
-    //     return;
-    //   }
-    // }
+    for (const key in appointment) {
+      if (appointment.hasOwnProperty(key) && appointment[key] === '') {
+        setError(true);
+        return;
+      }
+    }
 
+    // TODO: not adding uuid
     setAppointment({ ...appointment, id: uuid() });
     addNewAppointment(appointment);
     setAppointment(initialAppointment);
-    // this.setState({ ...initialState });
+    setError(true);
   };
 
   return (
     <Fragment>
       <h2>Crear Cita</h2>
-
-      {/* <div className="card mt-5 py-5">
-         <div className="card-body">
-           <h2 className="card-title text-center mb-5">Fill the form</h2>
-
-          {error ? (
-             <div className="alert alert-danger mt-2 mb-5 text-center">
-               All fields are required
-             </div>
-           ) : null} */}
+      {error ? (
+        <div className="notification error">All fields are required</div>
+      ) : null}
 
       <form onSubmit={handleSubmit}>
         <label>Pet name:</label>
@@ -70,7 +65,6 @@ const NewAppointment = ({ addNewAppointment }) => {
           onChange={handleChange}
           value={appointment.owner}
         />
-
         <label>Date</label>
         <input
           type="date"
@@ -79,7 +73,6 @@ const NewAppointment = ({ addNewAppointment }) => {
           onChange={handleChange}
           value={appointment.date}
         />
-
         <label>Hour</label>
         <input
           type="time"
@@ -88,7 +81,6 @@ const NewAppointment = ({ addNewAppointment }) => {
           onChange={handleChange}
           value={appointment.hour}
         />
-
         <label>Symptoms</label>
         <textarea
           className="u-full-width"
@@ -102,30 +94,11 @@ const NewAppointment = ({ addNewAppointment }) => {
         </button>
       </form>
     </Fragment>
-    //   </div>
-    // </div>
   );
 };
 
-// class NewAppointment extends Component {
-//   state = { ...initialState };
-
-//   handleChange = e => {
-//     this.setState({
-//       appointment: {
-//         ...this.state.appointment,
-//         [e.target.name]: e.target.value
-//       }
-//     });
-//   };
-
-//   render() {
-//     const { error } = this.state;
-//   }
-// }
-
-// NewAppointment.propTypes = {
-//   addNewAppointment: PropTypes.func.isRequired
-// };
+NewAppointment.propTypes = {
+  addNewAppointment: PropTypes.func.isRequired
+};
 
 export default NewAppointment;

@@ -1,14 +1,29 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { Header, NewAppointment, ListAppointments } from './components';
 
 const App = () => {
-  const [appointments, setAppointments] = useState([]);
+  let appointmentsLS = JSON.parse(localStorage.getItem('appointments'));
+
+  if (!appointmentsLS) {
+    appointmentsLS = [];
+  }
+  const [appointments, setAppointments] = useState(appointmentsLS);
   const addNewAppointment = data => setAppointments([...appointments, data]);
 
   const removeAppointment = id => {
     const dates = appointments.filter(date => date.id !== id);
     setAppointments(dates);
   };
+
+  useEffect(() => {
+    // TODO: Refactor
+    const appointmentsLS = JSON.parse(localStorage.getItem('appointments'));
+    if (appointmentsLS) {
+      localStorage.setItem('appointments', JSON.stringify(appointments));
+    } else {
+      localStorage.setItem('appointments', JSON.stringify([]));
+    }
+  }, [appointments]);
 
   return (
     <Fragment>
@@ -29,24 +44,5 @@ const App = () => {
     </Fragment>
   );
 };
-
-// class App2 extends Component {
-//   componentDidMount() {
-//     const appointmentsLS = localStorage.getItem('appointments');
-//     if (appointmentsLS) {
-//       this.setState({
-//         appointments: JSON.parse(appointmentsLS)
-//       });
-//     }
-//   }
-
-//   componentDidUpdate() {
-//     localStorage.setItem(
-//       'appointments',
-//       JSON.stringify(this.state.appointments)
-//     );
-//   }
-
-// }
 
 export default App;
