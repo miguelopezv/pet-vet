@@ -4,7 +4,7 @@ import uuid from 'uuid';
 
 const NewAppointment = ({ addNewAppointment }) => {
   const initialAppointment = {
-    id: undefined,
+    id: uuid(),
     pet: '',
     owner: '',
     date: '',
@@ -32,11 +32,10 @@ const NewAppointment = ({ addNewAppointment }) => {
       }
     }
 
-    // TODO: not adding uuid
-    setAppointment({ ...appointment, id: uuid() });
+    setAppointment(appointment);
     addNewAppointment(appointment);
     setAppointment(initialAppointment);
-    setError(true);
+    setError(false);
   };
 
   return (
