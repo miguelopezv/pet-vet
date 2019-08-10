@@ -32,7 +32,6 @@ const NewAppointment = ({ addNewAppointment }) => {
       }
     }
 
-    setAppointment(appointment);
     addNewAppointment(appointment);
     setAppointment(initialAppointment);
     setError(false);
