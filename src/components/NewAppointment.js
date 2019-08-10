@@ -39,7 +39,7 @@ const NewAppointment = ({ addNewAppointment }) => {
 
   return (
     <Fragment>
-      <h2>Crear Cita</h2>
+      <h2>Fill the form</h2>
       {error ? (
         <div className="notification error">All fields are required</div>
       ) : null}
