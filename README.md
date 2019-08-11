@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Live Site
 
-You can preview a running instance of this app on `https://pet-vet.netlify.com`.
+You can preview a running instance of this app on [pet-vet.netlify.com](https://pet-vet.netlify.com)
 
 ### About this project
 This project is now using hooks and functional components, however the first time it was created using stateless and class components, there's a branch called `pre-refactor` wich still contains all the previous work. it uses normalize and skeleton for CSS and styles, and store data on LocalStorage.
